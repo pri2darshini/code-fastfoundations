@@ -5,7 +5,7 @@ import textwrap
 
 
 def print_5s():
-    sssss = "整理、 整頓、 清楚、 清潔、 しつけ"
+    sssss = "الفاكهة والحقيبة"
     print(sssss)
     print(f"{len(sssss) = }")
     sssss_bytes = sssss.encode('utf-8')
@@ -26,6 +26,9 @@ def working_with_bytes():
     # only allows 0..255
     b_fail = bytes([268])  # raises ValueError
 
+#String can be encoded into abyte
+#Byte decode to string
+#If a character that is not present in coding then it will get the unicode encode error.
 
 def print_triple_quoted():
     string = """
@@ -57,7 +60,7 @@ def string_search(word, replace_with='fishcake'):
     print(f"{sentence.replace(word, replace_with)}")
 
 
-def string_is_properties(string):
+def string_is_properties(string:str):
     # isalnum, isalpha, isprintable, isspace
     print(f"{string.isalnum() = }")
     print(f"{string.isalpha() = }")
@@ -94,10 +97,10 @@ def string_method_formatting(string: str):
     width, height = shutil.get_terminal_size()
     print(f"terminal dimensions (w,h): {width, height}")
     # justification: rjust, center, ljust, zfill
-    print(string.rjust80)
-    print(string.center80)
-    print(string.ljust80)
-    print(string.zfill80)
+    print(string.rjust())
+    print(string.center())
+    print(string.ljust())
+    print(string.zfill())
     # case: capitalize, swapcase, upper, lower, title
     print(f"{string.capitalize() = }")
     print(f"{string.swapcase() = }")
@@ -157,17 +160,28 @@ def string_format_minilanguage():
 
 {signature:<{width}}
 """)
-
-
+def my_string():
+    my_string = ("violet_blue|convert|red|6.3327|9.4423|113.3428|7.3298|5.3353|9.9283|over|all")
+    print(my_string)
+    x = my_string.split("|")
+    print(x)
+    print(x[3])
+    print(x[5])
+    y = list(map(float,x[3:9]))
+    a,b,c,d,e,f = y
+    print(y)
+    pythagoras = ((b-a) ** 2)+((b-c)**2)
+    print(pythagoras)
 def main():
-    # print_5s()
-    # working_with_bytes()
+    #print_5s()
+    #working_with_bytes()
     # print_triple_quoted()
-    # string_search('who')
-    # string_is_properties(input())
+    #string_search('who')
+    #string_is_properties(input())
     # slicing_and_dicing_strings(input())
-    # string_method_formatting(input())
-    # string_format_minilanguage()
+    #string_method_formatting(input())
+    string_format_minilanguage()
+    #my_string()
     return 0
 
 
