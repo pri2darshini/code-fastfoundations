@@ -52,11 +52,22 @@ def parsing_text_files():
             cols = row.strip().split("\t")
             print(cols)
 
+def writing_lines():
+    import pathlib
+
+    my_path = pathlib.Path("dir1/dir3/dir5/write.odt")
+    my_path.parent.mkdir(exist_ok=True)
+    col1 = 80
+    print(f"{str(my_path.absolute()):{col1}}: {my_path.exists() = }")
+
+    my_path.parent.mkdir(exist_ok=True)
+    print(f"{str(my_path.absolute()):{col1}}:{my_path.exists() = }")
 
 def main():
-    # writing_to_text_files()
-    # creating_and_modifying_paths()
-    # parsing_text_files()
+    #writing_to_text_files()
+    #creating_and_modifying_paths()
+    #parsing_text_files()
+    writing_lines()
     return 0
 
 

@@ -3,12 +3,12 @@ import sys
 
 def opening_and_closing_files():
     f = open("think_different.txt")  # details: https://docs.python.org/3/library/functions.html#open
-    quote = f.read()
+    quote = f.read()            #f is a file handle
     print(f"{quote = }")
     # try and read again
     quote_again = f.read()
     print(f"{quote_again = }")
-    # don't forget!
+    # don't forget! if you are not closing then its called stale file.
     f.close()
 
 
@@ -77,15 +77,15 @@ def testing_paths():
 
 def useful_path_operations():
     import pathlib
-    my_path = pathlib.Path("/Users/paulkorir/PycharmProjects/code-fastfoundations/day2/dir1/dir3/dir4/einstein.txt")
+    my_path = pathlib.Path("dir1/dir3/dir4/einstein.txt")
     with my_path.open() as f:
         print(f.read())
-    my_path = pathlib.Path("~/PycharmProjects/code-fastfoundations/day2/dir1/dir3/dir4/einstein.txt")  # ~ = user dir
+    my_path = pathlib.Path("dir1/dir3/dir4/einstein.txt")  # ~ = user dir
     # with my_path.open() as f: # raises an exception
     #     print(f.read())
     with my_path.expanduser().open() as f:  # need to expand user first
         print(f.read())
-    my_path = pathlib.Path("/Users/paulkorir/PycharmProjects/code-fastfoundations/day2")
+    my_path = pathlib.Path(".")
     print(f"{my_path.glob('*') = }")  # globbing; just like on the bash terminal
     print(f"{'GLOBBING'}")
     for path_object in my_path.glob('*'):
@@ -97,15 +97,42 @@ def useful_path_operations():
     for path_object in my_path.rglob('**/*'):  # recursive globbing
         print(f"\t* {path_object.name:<30} ==> {path_object.parent}")
 
+def iterating_over_file_contents():
+    with open("think_different.txt")as f:
+        for row in f:
+            print(row.strip())
+def read_hidden():
+    import pathlib
+    my_path = pathlib.Path("~/")
+    for fn in my_path.expanduser().glob(".*"):
+        print(fn)
+def reading_socrates():
+    import pathlib
+    my_path = pathlib.Path("dir1/dir2/socrates.txt")
+    with my_path.open() as f:
+        print(f.read())
 
+def reading_wagata():
+    with open("wagata.txt",encoding='utf-32') as f:
+        print(f.read())
+
+def print_number_rows(filename,lines=10):
+    with open(filename) as f:
+        lines_read = f.readlines()[:lines]
+        print(lines_read)
+        print(len(lines_read))
 def main():
-    # opening_and_closing_files()
-    # reading_file_contents()
-    # iterating_over_file_contents()
-    # navigating_files()
-    # working_with_paths()
-    # testing_paths()
-    useful_path_operations()
+    #opening_and_closing_files()
+    #reading_file_contents()
+    #iterating_over_file_contents()
+    #navigating_files()
+    #working_with_paths()
+    #testing_paths()
+    #print_number_rows("paradoxical.txt")
+    #useful_path_operations()
+    #reading_socrates()
+    read_hidden()
+    #reading_wagata()
     return 0
 
 

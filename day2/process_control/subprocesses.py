@@ -22,7 +22,7 @@ def create_subprocess():
     print(f"{os.getpid() = }")  # the process id for this module's process
     process = subprocess.Popen(
         shlex.split(
-            "python /Users/paulkorir/PycharmProjects/code-fastfoundations/day2/"
+            "bash pwd: python /Users/paulkorir/PycharmProjects/code-fastfoundations/day2/"
             "process_control/simple_task.py"
         ),
         stdin=subprocess.PIPE,  # necessary to communicate the input value
@@ -55,11 +55,20 @@ def stop_subprocess():
     print(f"{stderr = }")
     print(f"{process.returncode = } 😵")  # exit code
 
-
+def subprocess_search():
+    process = subprocess.run(
+        shlex.split('find . -name ‘*paradoxical.*’ -type f')
+    )
+    print(f"{process = }")
+    print(f"{process.args = }")
+    print(f"{process.returncode = }")
+    print(f"{process.stdout = }")
+    print(f"{process.stderr = }")
 def main():
-    simplest_way()
-    # create_subprocess()
-    # stop_subprocess()
+    #simplest_way()
+    #create_subprocess()
+    #stop_subprocess()
+    subprocess_search()
     return 0
 
 

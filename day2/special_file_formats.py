@@ -1,17 +1,17 @@
 import sys
 
 
+
 def working_with_gzip_files():
     import gzip
+
     # read
-    with gzip.open(
-            "/Users/paulkorir/PycharmProjects/code-fastfoundations/day2/dir1/dir3/dir4/our_deepest_fear.txt.gz"
-    ) as g:
+    with gzip.open("dir1/dir3/dir4/our_deepest_fear.txt.gz",mode = 'rb',encoding = 'utf = 8') as g:
         text = g.read()
         print(type(text))
     # write
     with gzip.open(
-            "/Users/paulkorir/PycharmProjects/code-fastfoundations/day2/dir1/dir3/dir4/youth.txt.gz",
+            "dir1/dir3/dir4/youth.txt.gz",
             'wb'
     ) as g:  # a binary file
         # g.write("It takes a very long time to become young.\n") # TypeError
@@ -48,7 +48,7 @@ def working_with_binary_data():
     random.seed(1234)  # seeding the RNG
     data = [random.random() for _ in range(10)]  # get <count> rands
     print(f"{data = }")
-    bin_data = struct.pack(f'<10f', *data)
+    bin_data = struct.pack(f'<10f', *data)  # *meANS IN SOLUTION ONLY PASS THE DATA NOT THE CONTAINER THAT IS THE LIST
     print(f"{bin_data = }")
     data2 = struct.unpack(f'<10f', bin_data)
     print(f"{data2 = }")
@@ -75,12 +75,46 @@ def compressing_binary_data():
     data2 = struct.unpack(f'<10f', bin_data2)
     print(f"{data2 = }")
 
+def convert_gtf_to_gz():
+    import gzip
+    with open("Homo_sapiens.GRCh38.107.shuffled_and_truncated.gtf")as f,gzip.open("Homo_sapiens.GRCh38.107.shuffled_and_truncated.gtf.gz",'wb') as g:
+        for row in f:
+            g.write(row.encode('utf-8'))
 
+            with gzip.open("Homo_sapiens.GRCh38.107.shuffled_and_truncated.gtf.gz") as g:
+                for orw in g:
+                    print(row)
+            import pathlib
+            uncompressed_path =  pathlib.Path("Homo_sapiens.GRCh38.107.shuffled_and_truncated.gtf")
+            print(f"{uncompressed_path.stat() = }")
+            print(f"{uncompressed_path.stat().st_size = }")
+            compressed_path = pathlib.Path("Homo_sapiens.GRCh38.107.shuffled_and_truncated.gtf.gz")
+            print(f"{compressed_path.stat() = }")
+            print(f"{compressed_path.stat().st_size = }")
+            print(f"{uncompressed_path.stat().st_size/compressed_path.stat().st_size}")
+def binary_float_and_ints():
+    import struct
+    import random
+    int_data = [random.randint(0,200) for _ in range(1000)] #get <count> rands
+    float_data = [random.random() for _ in range(1000)]
+    bin_data = struct.pack("<1000i",*int_data)
+    bin_data += struct.pack("<1000f", *float_data)
+    return bin_data
+
+def revert_to_actual():
+    import struct
+    int_data = struct.unpack("<1000i",bin_data[:4000])
+    print(f"{int_data[-10:]}")
+    float_data = struct.unpack("<1000f",bin_data[4000:])
+    print("f{float_data[-10:]}")
 def main():
-    # working_with_gzip_files()
-    # read_json_file()
-    working_with_binary_data()
-    compressing_binary_data()
+    #working_with_gzip_files()
+    #read_json_file()
+    #convert_gtf_to_gz()
+    #working_with_binary_data()
+    #compressing_binary_data()
+    #binary_float_and_ints()
+    revert_to_actual()
     return 0
 
 
